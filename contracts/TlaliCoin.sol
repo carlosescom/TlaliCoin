@@ -35,4 +35,30 @@ contract TlaliCoin is IERC20, IERC223 {
         }
         emit Transfer(msg.sender, _to, _value, _data);
     }
+
+    /**
+     * @dev Transfiere la cantidad especificada de tokens a la dirección especificada.
+     * Esta función funciona de la misma manera que la anterior pero no contiene
+     * el parámetro `_data`. Añadido debido a razones de compatibilidad.
+     *
+     * @param _to    Dirección del receptor.
+     * @param _value Cantidad de tokens a transferir.
+     */
+    function transfer(address _to, uint _value) {
+        uint codeLength;
+        bytes memory empty;
+
+        assembly {
+            // Devuelve el tamaño del código en la dirección de destino, ésto necesita ensamblador.
+            codeLength := extcodesize(_to)
+        }
+
+        balances[msg.sender] = balances[msg.sender].sub(_value);
+        balances[_to] = balances[_to].add(_value);
+        if(codeLength>0) {
+            ERC223ReceivingContract receiver = ERC223ReceivingContract(_to);
+            receiver.tokenFallback(msg.sender, _value, empty);
+        }
+        emit Transfer(msg.sender, _to, _value, empty);
+    }
 }
