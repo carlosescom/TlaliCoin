@@ -9,6 +9,11 @@ import "./IERC20.sol";
 import "./IERC223.sol";
 
 contract TlaliCoin is IERC20, IERC223 {
+  string public name = "TlaliCoin";
+  string public symbol = "TLALI";
+  uint8 public decimals = 0;
+  uint256 public totalSupply = 1500000000; // 1500 millones
+
     /**
      * @dev Transfiere la cantidad especificada de tokens a la dirección especificada.
      * Invoca la función `tokenFallback` si el destinatario es un contrato.
@@ -61,4 +66,6 @@ contract TlaliCoin is IERC20, IERC223 {
         }
         emit Transfer(msg.sender, _to, _value, empty);
     }
+
+    event Transfer(address indexed _from, address indexed _to, uint256 _value, bytes _data);
 }
