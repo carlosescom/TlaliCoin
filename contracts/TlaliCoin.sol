@@ -13,6 +13,8 @@ contract TlaliCoin is IERC223 {
   uint8 public decimals = 0;
   uint256 public totalSupply = 1500000000; // 1500 millones
 
+  mapping(address => uint) balances;
+
     /**
      * @dev Transfiere la cantidad especificada de tokens a la dirección especificada.
      * Invoca la función `tokenFallback` si el destinatario es un contrato.
