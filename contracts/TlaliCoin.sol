@@ -23,7 +23,7 @@ contract TlaliCoin is IERC223 {
      * @param _value Cantidad de tokens a transferir.
      * @param _data  Metadatos de la transacción.
      */
-    function transfer(address _to, uint _value, bytes _data) {
+    function transfer(address _to, uint _value, bytes memory _data) public {
         // La función transfer es similar a la transfer de un ERC20 sin _data.
         // Añadido debido a razones de compatibilidad hacia atrás.
         uint codeLength;
@@ -48,7 +48,7 @@ contract TlaliCoin is IERC223 {
      * @param _to    Dirección del receptor.
      * @param _value Cantidad de tokens a transferir.
      */
-    function transfer(address _to, uint _value) {
+    function transfer(address _to, uint _value) public {
         uint codeLength;
         bytes memory empty;
 
