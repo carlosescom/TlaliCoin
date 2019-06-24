@@ -20,6 +20,16 @@ contract TlaliCoin is IERC223 {
   mapping(address => uint) balances;
 
     /**
+     * @dev Devuleve el balance de la cuenta designada en el parámetro `_owner`.
+     *
+     * @param _owner   La dirección cuyo balance se está consultando.
+     * @return balance Balance del propietario de los fondos (_owner).
+     */
+    function balanceOf(address _owner) constant returns (uint balance) {
+        return balances[_owner];
+    }
+
+    /**
      * @dev Transfiere la cantidad especificada de tokens a la dirección especificada.
      * Invoca la función `tokenFallback` si el destinatario es un contrato.
      * La transferencia de tokens falla si el receptor es un contrato pero no
@@ -71,6 +81,4 @@ contract TlaliCoin is IERC223 {
         }
         emit Transfer(msg.sender, _to, _value, empty);
     }
-
-    event Transfer(address indexed _from, address indexed _to, uint256 _value, bytes _data);
 }
