@@ -6,7 +6,7 @@ pragma solidity 0.5.8;
  */
 
 interface IERC223 {
-  function balanceOf(address who) external returns (uint);
+  function balanceOf(address who) external view returns (uint);
   function transfer(address to, uint value) external;
   function transfer(address to, uint value, bytes calldata data) external;
 
