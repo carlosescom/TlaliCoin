@@ -37,7 +37,7 @@ contract TlaliCoin is IERC223 {
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
         if(codeLength>0) {
-            ERC223ReceivingContract receiver = ERC223ReceivingContract(_to);
+            IERC223_Receiver receiver = IERC223_Receiver(_to);
             receiver.tokenFallback(msg.sender, _value, _data);
         }
         emit Transfer(msg.sender, _to, _value, _data);
@@ -63,7 +63,7 @@ contract TlaliCoin is IERC223 {
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
         if(codeLength>0) {
-            ERC223ReceivingContract receiver = ERC223ReceivingContract(_to);
+            IERC223_Receiver receiver = IERC223_Receiver(_to);
             receiver.tokenFallback(msg.sender, _value, empty);
         }
         emit Transfer(msg.sender, _to, _value, empty);
