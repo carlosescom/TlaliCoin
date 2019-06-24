@@ -19,6 +19,10 @@ contract TlaliCoin is IERC223 {
 
   mapping(address => uint) balances;
 
+    constructor() public {
+        balances[msg.sender] = totalSupply;
+    }
+
     /**
      * @dev Devuleve el balance de la cuenta designada en el parámetro `_owner`.
      *
