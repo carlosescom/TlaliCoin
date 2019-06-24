@@ -7,8 +7,11 @@ pragma solidity 0.5.8;
 
 import "./IERC223.sol";
 import "./IERC223_Receiver.sol";
+import "./SafeMath.sol";
 
 contract TlaliCoin is IERC223 {
+  using SafeMath for uint;
+
   string public name = "TlaliCoin";
   string public symbol = "TLALI";
   uint8 public decimals = 0;
