@@ -6,7 +6,7 @@ pragma solidity 0.5.8;
  */
 
 import "./IERC223.sol";
-import "./ERC223_Receiver.sol";
+import "./IERC223_Receiver.sol";
 
 contract TlaliCoin is IERC223 {
   string public name = "TlaliCoin";
