@@ -25,7 +25,7 @@ contract TlaliCoin is IERC223 {
      * @param _owner   La dirección cuyo balance se está consultando.
      * @return balance Balance del propietario de los fondos (_owner).
      */
-    function balanceOf(address _owner) constant returns (uint balance) {
+    function balanceOf(address _owner) view returns (uint balance) {
         return balances[_owner];
     }
 
