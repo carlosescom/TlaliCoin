@@ -5,10 +5,9 @@ pragma solidity 0.5.8;
  * @dev Carlos Noverón https://github.com/carlosescom/TlaliCoin
  */
 
-import "./IERC20.sol";
 import "./IERC223.sol";
 
-contract TlaliCoin is IERC20, IERC223 {
+contract TlaliCoin is IERC223 {
   string public name = "TlaliCoin";
   string public symbol = "TLALI";
   uint8 public decimals = 0;
