@@ -46,16 +46,6 @@ contract ERC20 is IERC20 {
   }
 
   /**
-    * @dev Transfer token for a specified address
-    * @param to The address to transfer to.
-    * @param value The amount to be transferred.
-    */
-  function transfer(address to, uint256 value) public returns (bool) {
-    _transfer(msg.sender, to, value);
-    return true;
-  }
-
-  /**
      * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
