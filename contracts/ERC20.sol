@@ -22,15 +22,6 @@ contract ERC20 is IERC20 {
 
   mapping(address => mapping(address => uint256)) private _allowed;
 
-  uint256 private _totalSupply;
-
-  /**
-    * @dev Total number of tokens in existence
-    */
-  function totalSupply() public view returns (uint256) {
-    return _totalSupply;
-  }
-
   /**
     * @dev Gets the balance of the specified address.
     * @param owner The address to query the balance of.
