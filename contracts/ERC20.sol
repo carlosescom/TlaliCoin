@@ -17,7 +17,7 @@ import "./SafeMath.sol";
  */
 contract ERC20 is IERC20 {
   using SafeMath for uint256;
-  uint256 public totalSupply = 3125000000; // 1500 millones
+  uint256 public totalSupply = 3125000000; // 3,125 millones
 
   mapping(address => uint256) balances;
   mapping(address => mapping(address => uint256)) allowed;
