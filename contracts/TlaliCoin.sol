@@ -11,14 +11,9 @@ import "./IERC223_Receiver.sol";
 import "./SafeMath.sol";
 
 contract TlaliCoin is IERC223, ERC20 {
-  using SafeMath for uint;
-
   string public name = "TlaliCoin";
   string public symbol = "TLALI";
   uint8 public decimals = 0;
-  uint256 public totalSupply = 3125000000; // 1500 millones
-
-  mapping(address => uint) balances;
 
   constructor() public {
     balances[msg.sender] = totalSupply;

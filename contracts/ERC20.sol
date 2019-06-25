@@ -28,7 +28,7 @@ contract ERC20 is IERC20 {
     * @return An uint256 representing the amount owned by the passed address.
     */
   function balanceOf(address owner) public view returns (uint256) {
-    return _balances[owner];
+    return balances[owner];
   }
 
   /**
@@ -145,8 +145,8 @@ contract ERC20 is IERC20 {
   function _transfer(address from, address to, uint256 value) internal {
     require(to != address(0));
 
-    _balances[from] = _balances[from].sub(value);
-    _balances[to] = _balances[to].add(value);
+    balances[from] = balances[from].sub(value);
+    balances[to] = balances[to].add(value);
     emit Transfer(from, to, value);
   }
 
@@ -160,8 +160,8 @@ contract ERC20 is IERC20 {
   function _mint(address account, uint256 value) internal {
     require(account != address(0));
 
-    _totalSupply = _totalSupply.add(value);
-    _balances[account] = _balances[account].add(value);
+    totalSupply = totalSupply.add(value);
+    balances[account] = balances[account].add(value);
     emit Transfer(address(0), account, value);
   }
 
@@ -174,8 +174,8 @@ contract ERC20 is IERC20 {
   function _burn(address account, uint256 value) internal {
     require(account != address(0));
 
-    _totalSupply = _totalSupply.sub(value);
-    _balances[account] = _balances[account].sub(value);
+    totalSupply = totalSupply.sub(value);
+    balances[account] = balances[account].sub(value);
     emit Transfer(account, address(0), value);
   }
 
