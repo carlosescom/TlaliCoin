@@ -20,25 +20,25 @@ contract TlaliCoin is IERC223, ERC20 {
   }
 
   /**
-     * @dev Devuleve el balance de la cuenta designada en el parámetro `_owner`.
-     *
-     * @param _owner   La dirección cuyo balance se está consultando.
-     * @return balance Balance del propietario de los fondos (_owner).
-     */
+    * @dev Devuleve el balance de la cuenta designada en el parámetro `_owner`.
+    *
+    * @param _owner   La dirección cuyo balance se está consultando.
+    * @return balance Balance del propietario de los fondos (_owner).
+    */
   function balanceOf(address _owner) public view returns (uint balance) {
     return balances[_owner];
   }
 
   /**
-     * @dev Transfiere la cantidad especificada de tokens a la dirección especificada.
-     * Invoca la función `tokenFallback` si el destinatario es un contrato.
-     * La transferencia de tokens falla si el receptor es un contrato pero no
-     * implementa la función `tokenFallback` o la función de respaldo para recibir fondos.
-     *
-     * @param _to    Dirección del receptor.
-     * @param _value Cantidad de tokens a transferir.
-     * @param _data  Metadatos de la transacción.
-     */
+    * @dev Transfiere la cantidad especificada de tokens a la dirección especificada.
+    * Invoca la función `tokenFallback` si el destinatario es un contrato.
+    * La transferencia de tokens falla si el receptor es un contrato pero no
+    * implementa la función `tokenFallback` o la función de respaldo para recibir fondos.
+    *
+    * @param _to Dirección del receptor.
+    * @param _value Cantidad de tokens a transferir.
+    * @param _data Metadatos de la transacción.
+    */
   function transfer(address _to, uint _value, bytes memory _data) public returns (bool) {
     // La función transfer es similar a la transfer de un ERC20 sin _data.
     // Añadido debido a razones de compatibilidad hacia atrás.
@@ -56,13 +56,13 @@ contract TlaliCoin is IERC223, ERC20 {
   }
 
   /**
-     * @dev Transfiere la cantidad especificada de tokens a la dirección especificada.
-     * Esta función funciona de la misma manera que la anterior pero no contiene
-     * el parámetro `_data`. Añadido debido a razones de compatibilidad.
-     *
-     * @param _to    Dirección del receptor.
-     * @param _value Cantidad de tokens a transferir.
-     */
+    * @dev Transfiere una cantidad de tokens a la dirección especificada.
+    * Esta función funciona de la misma manera que la anterior pero no contiene
+    * el parámetro `_data`. Añadido debido a razones de compatibilidad.
+    *
+    * @param _to Dirección del receptor.
+    * @param _value Cantidad de tokens a transferir.
+    */
   function transfer(address _to, uint _value) public returns (bool) {
     uint codeLength;
     bytes memory empty;
@@ -79,13 +79,15 @@ contract TlaliCoin is IERC223, ERC20 {
   }
 
   /**
-     * @dev Transfer tokens from one address to another.
-     * Note that while this function emits an Approval event, this is not required as per the specification,
-     * and other compliant implementations may not emit the event.
-     * @param from address The address which you want to send tokens from
-     * @param to address The address which you want to transfer to
-     * @param value uint256 the amount of tokens to be transferred
-     */
+    * @dev Transfiere una cantidad de tokens de una dirección a otra.
+    * Para poder ejecutar esta función se requiere primero que el dueño de los fondos
+    * apruebe primero que otra dirección gaste tokens de su cuenta. Para lo cual
+    * es necesario ejecutar primero la función `Approve` con la cantidad máxima de tokens
+    * que el dueño de los fondos está dispuesto a que otro gaste de su cuenta.
+    * @param from Dirección del dueño de los fondos.
+    * @param to Dirección del receptor.
+    * @param value Cantidad de tokens a transferir.
+    */
   function transferFrom(address from, address to, uint256 value) public returns (bool) {
     allowed[from][msg.sender] = allowed[from][msg.sender].sub(value);
     _transfer(from, to, value);
