@@ -86,10 +86,7 @@ contract TlaliCoin is IERC223, ERC20 {
      * @param to address The address which you want to transfer to
      * @param value uint256 the amount of tokens to be transferred
      */
-  function transferFrom(address from, address to, uint256 value)
-    public
-    returns (bool)
-  {
+  function transferFrom(address from, address to, uint256 value) public returns (bool) {
     allowed[from][msg.sender] = allowed[from][msg.sender].sub(value);
     _transfer(from, to, value);
     emit Approval(from, msg.sender, allowed[from][msg.sender]);
@@ -97,7 +94,7 @@ contract TlaliCoin is IERC223, ERC20 {
   }
 
   function _transfer(address from, address to, uint256 value) internal {
-    require(to != address(0));
+    require(to != address(0),"Se previno envio a direccion 0x0");
     balances[from] = balances[from].sub(value);
     balances[to] = balances[to].add(value);
     emit Transfer(from, to, value);
