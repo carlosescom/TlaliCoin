@@ -1,6 +1,6 @@
 pragma solidity 0.5.8;
 
- /**
+/**
  * @title TlaliCoin es un token que incentiva el reciclaje
  * @dev Carlos Noverón https://github.com/carlosescom/TlaliCoin
  */
@@ -19,21 +19,21 @@ contract TlaliCoin is IERC223 {
 
   mapping(address => uint) balances;
 
-    constructor() public {
-        balances[msg.sender] = totalSupply;
-    }
+  constructor() public {
+    balances[msg.sender] = totalSupply;
+  }
 
-    /**
+  /**
      * @dev Devuleve el balance de la cuenta designada en el parámetro `_owner`.
      *
      * @param _owner   La dirección cuyo balance se está consultando.
      * @return balance Balance del propietario de los fondos (_owner).
      */
-    function balanceOf(address _owner) public view returns (uint balance) {
-        return balances[_owner];
-    }
+  function balanceOf(address _owner) public view returns (uint balance) {
+    return balances[_owner];
+  }
 
-    /**
+  /**
      * @dev Transfiere la cantidad especificada de tokens a la dirección especificada.
      * Invoca la función `tokenFallback` si el destinatario es un contrato.
      * La transferencia de tokens falla si el receptor es un contrato pero no
@@ -43,24 +43,24 @@ contract TlaliCoin is IERC223 {
      * @param _value Cantidad de tokens a transferir.
      * @param _data  Metadatos de la transacción.
      */
-    function transfer(address _to, uint _value, bytes memory _data) public {
-        // La función transfer es similar a la transfer de un ERC20 sin _data.
-        // Añadido debido a razones de compatibilidad hacia atrás.
-        uint codeLength;
-        assembly {
-            // Devuelve el tamaño del código en la dirección de destino, ésto necesita ensamblador.
-            codeLength := extcodesize(_to)
-        }
-        balances[msg.sender] = balances[msg.sender].sub(_value);
-        balances[_to] = balances[_to].add(_value);
-        if(codeLength>0) {
-            IERC223_Receiver receiver = IERC223_Receiver(_to);
-            receiver.tokenFallback(msg.sender, _value, _data);
-        }
-        emit Transfer(msg.sender, _to, _value, _data);
+  function transfer(address _to, uint _value, bytes memory _data) public {
+    // La función transfer es similar a la transfer de un ERC20 sin _data.
+    // Añadido debido a razones de compatibilidad hacia atrás.
+    uint codeLength;
+    assembly {
+      // Devuelve el tamaño del código en la dirección de destino, ésto necesita ensamblador.
+      codeLength := extcodesize(_to)
     }
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    if (codeLength > 0) {
+      IERC223_Receiver receiver = IERC223_Receiver(_to);
+      receiver.tokenFallback(msg.sender, _value, _data);
+    }
+    emit Transfer(msg.sender, _to, _value, _data);
+  }
 
-    /**
+  /**
      * @dev Transfiere la cantidad especificada de tokens a la dirección especificada.
      * Esta función funciona de la misma manera que la anterior pero no contiene
      * el parámetro `_data`. Añadido debido a razones de compatibilidad.
@@ -68,21 +68,21 @@ contract TlaliCoin is IERC223 {
      * @param _to    Dirección del receptor.
      * @param _value Cantidad de tokens a transferir.
      */
-    function transfer(address _to, uint _value) public {
-        uint codeLength;
-        bytes memory empty;
+  function transfer(address _to, uint _value) public {
+    uint codeLength;
+    bytes memory empty;
 
-        assembly {
-            // Devuelve el tamaño del código en la dirección de destino, ésto necesita ensamblador.
-            codeLength := extcodesize(_to)
-        }
-
-        balances[msg.sender] = balances[msg.sender].sub(_value);
-        balances[_to] = balances[_to].add(_value);
-        if(codeLength>0) {
-            IERC223_Receiver receiver = IERC223_Receiver(_to);
-            receiver.tokenFallback(msg.sender, _value, empty);
-        }
-        emit Transfer(msg.sender, _to, _value, empty);
+    assembly {
+      // Devuelve el tamaño del código en la dirección de destino, ésto necesita ensamblador.
+      codeLength := extcodesize(_to)
     }
+
+    balances[msg.sender] = balances[msg.sender].sub(_value);
+    balances[_to] = balances[_to].add(_value);
+    if (codeLength > 0) {
+      IERC223_Receiver receiver = IERC223_Receiver(_to);
+      receiver.tokenFallback(msg.sender, _value, empty);
+    }
+    emit Transfer(msg.sender, _to, _value, empty);
+  }
 }
