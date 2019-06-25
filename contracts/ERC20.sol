@@ -20,7 +20,7 @@ contract ERC20 is IERC20 {
   uint256 public totalSupply = 3125000000; // 1500 millones
 
   mapping(address => uint256) balances;
-  mapping(address => mapping(address => uint256)) private _allowed;
+  mapping(address => mapping(address => uint256)) allowed;
 
   /**
     * @dev Gets the balance of the specified address.
@@ -42,7 +42,7 @@ contract ERC20 is IERC20 {
     view
     returns (uint256)
   {
-    return _allowed[owner][spender];
+    return allowed[owner][spender];
   }
 
   /**
@@ -57,26 +57,8 @@ contract ERC20 is IERC20 {
   function approve(address spender, uint256 value) public returns (bool) {
     require(spender != address(0));
 
-    _allowed[msg.sender][spender] = value;
+    allowed[msg.sender][spender] = value;
     emit Approval(msg.sender, spender, value);
-    return true;
-  }
-
-  /**
-     * @dev Transfer tokens from one address to another.
-     * Note that while this function emits an Approval event, this is not required as per the specification,
-     * and other compliant implementations may not emit the event.
-     * @param from address The address which you want to send tokens from
-     * @param to address The address which you want to transfer to
-     * @param value uint256 the amount of tokens to be transferred
-     */
-  function transferFrom(address from, address to, uint256 value)
-    public
-    returns (bool)
-  {
-    _allowed[from][msg.sender] = _allowed[from][msg.sender].sub(value);
-    _transfer(from, to, value);
-    emit Approval(from, msg.sender, _allowed[from][msg.sender]);
     return true;
   }
 
@@ -96,10 +78,10 @@ contract ERC20 is IERC20 {
   {
     require(spender != address(0));
 
-    _allowed[msg.sender][spender] = _allowed[msg.sender][spender].add(
+    allowed[msg.sender][spender] = allowed[msg.sender][spender].add(
       addedValue
     );
-    emit Approval(msg.sender, spender, _allowed[msg.sender][spender]);
+    emit Approval(msg.sender, spender, allowed[msg.sender][spender]);
     return true;
   }
 
@@ -119,10 +101,10 @@ contract ERC20 is IERC20 {
   {
     require(spender != address(0));
 
-    _allowed[msg.sender][spender] = _allowed[msg.sender][spender].sub(
+    allowed[msg.sender][spender] = allowed[msg.sender][spender].sub(
       subtractedValue
     );
-    emit Approval(msg.sender, spender, _allowed[msg.sender][spender]);
+    emit Approval(msg.sender, spender, allowed[msg.sender][spender]);
     return true;
   }
 
@@ -164,8 +146,8 @@ contract ERC20 is IERC20 {
      * @param value The amount that will be burnt.
      */
   function _burnFrom(address account, uint256 value) internal {
-    _allowed[account][msg.sender] = _allowed[account][msg.sender].sub(value);
+    allowed[account][msg.sender] = allowed[account][msg.sender].sub(value);
     _burn(account, value);
-    emit Approval(account, msg.sender, _allowed[account][msg.sender]);
+    emit Approval(account, msg.sender, allowed[account][msg.sender]);
   }
 }
