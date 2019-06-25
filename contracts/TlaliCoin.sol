@@ -15,7 +15,7 @@ contract TlaliCoin is IERC223 {
   string public name = "TlaliCoin";
   string public symbol = "TLALI";
   uint8 public decimals = 0;
-  uint256 public totalSupply = 1500000000; // 1500 millones
+  uint256 public totalSupply = 3125000000; // 1500 millones
 
   mapping(address => uint) balances;
 
