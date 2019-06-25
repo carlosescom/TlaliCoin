@@ -127,20 +127,6 @@ contract ERC20 is IERC20 {
   }
 
   /**
-    * @dev Transfer token for a specified addresses
-    * @param from The address to transfer from.
-    * @param to The address to transfer to.
-    * @param value The amount to be transferred.
-    */
-  function _transfer(address from, address to, uint256 value) internal {
-    require(to != address(0));
-
-    balances[from] = balances[from].sub(value);
-    balances[to] = balances[to].add(value);
-    emit Transfer(from, to, value);
-  }
-
-  /**
      * @dev Internal function that mints an amount of the token and assigns it to
      * an account. This encapsulates the modification of balances such that the
      * proper events are emitted.
