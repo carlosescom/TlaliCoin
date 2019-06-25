@@ -5,11 +5,12 @@ pragma solidity 0.5.8;
  * @dev Carlos Noverón https://github.com/carlosescom/TlaliCoin
  */
 
+import "./ERC20.sol";
 import "./IERC223.sol";
 import "./IERC223_Receiver.sol";
 import "./SafeMath.sol";
 
-contract TlaliCoin is IERC223 {
+contract TlaliCoin is IERC223, ERC20 {
   using SafeMath for uint;
 
   string public name = "TlaliCoin";
