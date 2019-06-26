@@ -1,3 +1,5 @@
+require('dotenv').config();
+var HDWalletProvider = require("truffle-hdwallet-provider");
 const path = require("path");
 
 module.exports = {
@@ -7,7 +9,16 @@ module.exports = {
   networks: {
     develop: {
       port: 8545
-    }
+    },
+    ropsten: {
+      provider: function () {
+        return new HDWalletProvider(
+          process.env.MNEMONIC,
+          "https://ropsten.infura.io/v3/" + process.env.INFURA_APIKEY, 0, 10, process.env.DERIV_PATH
+        )
+      },
+      network_id: 3
+    },
   },
   compilers: {
     solc: {
