@@ -1,21 +1,21 @@
+// React
 import React, { Component } from "react";
-import { DrizzleProvider } from "drizzle-react";
-import { LoadingContainer } from "drizzle-react-components";
 
-import "./App.css";
+// Drizzle
+import { Drizzle, generateStore } from 'drizzle'
+import { DrizzleContext } from 'drizzle-react'
+import drizzleOptions from './drizzleOptions'
 
-import drizzleOptions from "./drizzleOptions";
-import MyContainer from "./MyContainer";
 
 class App extends Component {
+
   render() {
+    var drizzleStore = generateStore(drizzleOptions)
+    var drizzle = new Drizzle(drizzleOptions, drizzleStore)
     return (
-      <DrizzleProvider options={drizzleOptions}>
-        <LoadingContainer>
-          <MyContainer />
-        </LoadingContainer>
-      </DrizzleProvider>
-    );
+      <DrizzleContext.Provider drizzle={drizzle}>
+      </DrizzleContext.Provider>
+    )
   }
 }
 
