@@ -1,6 +1,9 @@
 // React
 import React, { Component } from "react";
 
+// React Components
+import BarraSuperior from './components/BarraSuperior'
+
 // Drizzle
 import { Drizzle, generateStore } from 'drizzle'
 import { DrizzleContext } from 'drizzle-react'
@@ -14,6 +17,7 @@ class App extends Component {
     var drizzle = new Drizzle(drizzleOptions, drizzleStore)
     return (
       <DrizzleContext.Provider drizzle={drizzle}>
+        <BarraSuperior />
       </DrizzleContext.Provider>
     )
   }
