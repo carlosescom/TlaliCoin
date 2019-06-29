@@ -1,8 +1,10 @@
 // React
 import React, { Component } from "react";
+import { Route, NavLink, HashRouter } from "react-router-dom"
 
 // React Components
 import BarraSuperior from './components/BarraSuperior'
+import Cartera from './pages/Cartera'
 
 // Drizzle
 import { Drizzle, generateStore } from 'drizzle'
@@ -18,6 +20,18 @@ class App extends Component {
     return (
       <DrizzleContext.Provider drizzle={drizzle}>
         <BarraSuperior />
+        <HashRouter>
+          <div>
+            <nav>
+              <ul className="header" style={{ display: 'inline-block' }}>
+                <li><NavLink to="/Cartera">Cartera</NavLink></li>
+              </ul>
+            </nav>
+            <div className="content">
+              <Route path="/" component={Cartera} />
+            </div>
+          </div>
+        </HashRouter>
       </DrizzleContext.Provider>
     )
   }
