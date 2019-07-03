@@ -12,6 +12,10 @@ import { DrizzleContext } from 'drizzle-react'
 import drizzleOptions from './drizzleOptions'
 
 
+// Styles
+import './css/pure-min.css'
+import './css/App.css'
+
 class App extends Component {
 
   render() {
